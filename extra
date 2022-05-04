@@ -1,0 +1,160 @@
+
+<!-- API KEY for MAPS JAVASCRIPT API for Mobinome website : AIzaSyDpfX0caIJa57Dr49JL-O5xmWDmIEzLv3w -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpfX0caIJa57Dr49JL-O5xmWDmIEzLv3w&callback=initMap" async></script>
+<div id="map" class="m-10" style="height: 500px;"></div>
+    <script>
+	function initMap(){
+	    // Add Dufour fixed locations
+	    var locations = [
+	    	// BELGIQUE 
+	        [['Groupe Dufour ','Marquain'], 'Rue Terre à Briques, 18 7522 Marquain Belgique','Tél: 32(0)69 89 10 10','Fax: 32(0)69 22 92 51','info@dufour-cranes.com',50.614691006489686,3.3348209503984476,true,'Cranes.png'],
+	        [['Groupe Dufour',' Marquain'], 'Rue Terre à Briques, 18 7522 Marquain Belgique','Tél: 32(0)69 89 10 10','Fax: 32(0)69 22 92 51','info@dufour-cranes.com',50.614691006489686,3.3348209503984476,false,'Cranes.png',/*'/images/document/PIU%20_version%202021.pdf'*/],
+	        [['Groupe Dufour - Eco-Lys', 'Comines'],'Route des Ecluses 30, 7784 Comines-Warneton Belgique','Tél: 32(0)56 33 70 29','Fax: 32(0)56 34 51 14','info@eco-lys.be',50.765218550661274,3.0018050936118046,false,'Eco-lys.png'],
+	        [['Groupe Dufour - BBE', 'Antoing'],'Rue du Coucou 47, 7640 Antoing Belgique','Tél: 32(0)69 89 10 64','','mmercier@dufour.be',50.579627503183126, 3.444201506004226,false,'Antoing.png'],
+	        [['Groupe Dufour - Sodemaf', 'Vaulx'],'Rue du Canon, 14 - 7536 Vaulx','Tél: 32(0)69 84 54 55','Fax: 32(0)69 23 41 93','info@sodemaf.be',50.59069839445319, 3.4240806377149333,false, 'Vaulx.png'],
+	        [['Groupe Dufour - Replic', 'Pecq'],'Rue de la Bouvière - 7740 Pecq','Tél: 0473/39.35.21','','ralphdufour@replic.be',50.696083342602705,3.3421523365437924,false,'Pecq.png'],
+	        [['Groupe Dufour - Port de la Moignelée', 'Moignelée'],'Port de Moignelée - 5060 Farciennes','','','',50.44075285092179,4.575015735481379,false,'Moignelee.png'],
+	        [['Groupe Dufour - Velorie', 'Gaurain-Ramecroix'],'Grand Route 161 - 7530 Gaurain-Ramecroix','Tél: 32(0)69 58 13 39','','info@velorie.be',50.596224613949815,3.4757245000000005,false,'velorie_google_maps.png'],
+	        // FRANCE 
+			[['Groupe Dufour - Sama', 'Dunkerque'],'Route de Bourbourg 59380 Spycker France','Tél: 33(0)3 28 25 36 22', 'Fax: 33(0)3 28 60 37 97','info@dufour-sama.fr',50.98749407893171, 2.3007133215450706,false,'Sama.png'],
+	        [['Groupe Dufour - Technilevage', 'Lille'],'Bld de la Liberté, 130 59800 Lille France','Tél: 33(0)3 20 50 09 40','Fax: 33(0)3 20 50 09 70','info@dufour-cranes.com',50.62880748232024, 3.066897600888395,false,'Lille.png'],
+	        [['Groupe Dufour - Celtic Levage', 'Lens'],'Rue Aimé Dubost (ZI), 62670 MAZINGARBE France','Tél: 33(0)3 21 45 04 28','Fax: 33(0)3 21 45 04 68','info@dufour-celtic.fr',50.459844814532836, 2.729563674424108,false,'Celtic.png'],
+	        [['Groupe Dufour - 1WWT', 'Nantes'],'Rue Bisson, 6 - 44100 - Nantes France','Tél: 33(0)6 62 09 30 88','Fax: 33(0)2 72 64 40 99','info@dufour-1wwt.com',47.20596016759227, -1.575449208293074,false,'1WWT.png'],
+	        [['Groupe Dufour - IDF', 'Paris'],'Rue Gay Lussac, 15 - 77290 - Mitry-Mory - France','Tél: 33(0)1 60 21 10 00','Fax: 33(0)1 60 21 10 77','info@dufour-idf.fr',48.986404690052225, 2.638686849936206,false,'IDF.png'],
+  			[['Groupe Dufour - Merdrignac', 'Le Mans'],'Boulevard d’Estienne d’Orves, 10 - 72100 - LE MANS - France','Tél: 33(0)8 25 82 58 08','','contact@merdrignac.fr',47.98552374013994, 0.18236695110312734,false,'Le_Mans.png'],
+		    [['Groupe Dufour - Merdrignac', 'Laval'],'Rte du Mans, 53960 - Bonchamp-lès-Laval - France','Tél: 33(0) 825 82 58 08','','contact@merdrignac.fr',48.06979241475689, -0.690564038075847,false,'Laval.png'], 
+		    [['Groupe Dufour - Merdrignac', 'Rennes'],'Rue de la Giraudière, 5 - 35530 - Noyal sur Vilaine - France','Tél: 33 825 82 58 08','','contact@merdrignac.fr',48.10523059700938, -1.5162555784866731,false,'Rennes_b.png'],
+  		];  		
+  		
+	    map = new google.maps.Map(document.getElementById("map"), {
+	        center: { lat: 50.605549, lng: 3.387870 }
+	    });
+	 
+	    var infowindow = new google.maps.InfoWindow(); // définir infowindow en const en globale ainsi on setContent chaque infowindow lors d'un click! (et ainsi on ferme la précédente infowindow ouverte...)
+	    var allMarkers = []; 
+	    var countZoom = [];
+
+	    map.setZoom(6);
+
+	    for (i = 0; i < locations.length; i++) {
+	        geocodeAddress(map, locations[i],infowindow,allMarkers);
+	    }
+	    allMarkers[1].setMap(null);
+	    allMarkers[2].setMap(null);
+	    allMarkers[3].setMap(null);
+	    allMarkers[4].setMap(null);
+	    allMarkers[6].setMap(null);
+	    allMarkers[7].setMap(null);
+
+
+
+	    map.addListener("zoom_changed", () => {	
+	    	var zoom = map.getZoom();
+	    		//console.log(zoom);
+	    	// Savoir si on a zoomé/dézoomé avant 
+	    	countZoom.push(zoom);
+	    		//console.log(countZoom);
+	    	countZoomLast = countZoom[countZoom.length - 1];
+	    	countZoomBeforeLast = countZoom[countZoom.length - 2];
+	    	
+	    	if(countZoomLast && countZoomBeforeLast){ // le chemin doit avoir commencé 
+	    		if(countZoomLast > countZoomBeforeLast){
+		    		// On Zoome
+		    		if(zoom == 9 ){
+		    			//console.log("on zoome!");
+			    		allMarkers[0].setMap(null); // on enlève Marker Dufour Cranes Tournai avec icon "5"
+			    		allMarkers[1].setMap(map); // On ajouter les icons restantes 
+					    allMarkers[2].setMap(map);
+					    allMarkers[3].setMap(map);
+					    allMarkers[4].setMap(map);
+					    allMarkers[6].setMap(map);
+					    allMarkers[7].setMap(map);
+		    		}	
+		    	}else{
+		    		// On Dézoome 
+		    		if(zoom == 9 || zoom == 8 ){
+		    			//console.log("on dézoome!");
+			    		
+			    		allMarkers[0].setMap(map); // on fait le contraire 
+			    		allMarkers[1].setMap(null); // idem 
+					    allMarkers[2].setMap(null);
+					    allMarkers[3].setMap(null);
+					    allMarkers[4].setMap(null);
+					    allMarkers[6].setMap(null);
+					    allMarkers[7].setMap(null);
+		    		}	
+		    	}
+	    	}
+
+	    	
+	    	// chaque fois qu'on clic sur un zoom, on affiche le tableau des markers dans la console 
+	    	//console.log(allMarkers);
+	    	
+	    });
+
+	}
+
+	function geocodeAddress(resultsMap,address,infowindow,allMarkers = false) {
+	        contentTitle = address[0][0];
+	        contentCity = address[0][1];
+	        contentPhrase = address[1];
+	        contentTel = address[2];  
+	        contentFax = address[3];
+	        contentMail = address[4];
+	        contentPic = address[8];
+	        contentPIU = address[9];
+
+	        var contentString =
+		    '<div id="content">' +
+		    '<h3 id="firstHeading" class="firstHeading contentTitlePd">'+contentTitle+'</h3>' +
+		    '<h4>'+contentCity+'</h4>'+
+		    '<div id="bodyContent">' +
+		    '<p><b>' + contentMail +'</b></p>' +
+		    '<p>' + contentPhrase +'</p>' +
+		    '<p>' + contentTel+'</p>'+
+		     '<p>' + contentFax+'</p>';
+
+		    if(contentPIU){
+		    	contentString += '<a href="'+ contentPIU + '" target="_blank" class="PIU_google_maps btn">Plan interne d\'urgence</a>';
+		    }
+
+		    /* start image implantation */ 
+		    if(contentPic){
+			 contentString +=  '<div class="imgDiv">'+
+			     	'<img src="/images/template/googlemaps/'+ contentPic + '" width="100%">'+
+			    '</div>';
+		    }
+		    /* end image implantation */ 
+		    contentString +=
+			'</div>' +
+		    '</div>';
+
+		    if(address[7] == true){
+		    	var icon = '/templates/lightwire/images/Icones_metiers_services_Localisation_reduced.png';
+		    }else{
+		    	var icon = '/templates/lightwire/images/Icones_metiers_services_Localisation.png';
+		    }
+
+	        var marker = new google.maps.Marker({
+	            position: { lat: address[5], lng: address[6]},
+	            map: resultsMap,
+	            animation: google.maps.Animation.DROP,
+	            title: contentString,
+	            icon: icon
+	        });
+	        attachSecretMessage(marker, marker.title, infowindow);
+
+	        if(allMarkers){
+	        	allMarkers.push(marker);
+	    	}
+	}
+
+	// Message to display when marker clicked
+	function attachSecretMessage(marker, secretMessage,infowindow) {
+		// ! listener de google et non jquery...
+	    marker.addListener("mouseover", () => {
+	    	infowindow.setContent("<div style = 'width:300px;min-height:40px'>" + secretMessage + "</div>");
+	        infowindow.open(marker.get("map"), marker);
+	    });
+	}   
+</script>
